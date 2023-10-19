@@ -4,7 +4,9 @@ function randomNumber(num) {
 
 function createpromise() {
   return new Promise(function exec(resolve, reject) {
-    console.log("Entering into the executer callback in the promise constructor");
+    console.log(
+      "Entering into the executer callback in the promise constructor"
+    );
     setTimeout(function timer() {
       let x = randomNumber(10);
       if (x % 2 == 0) {
@@ -13,7 +15,9 @@ function createpromise() {
         reject(x);
       }
     }, 5000);
-    console.log("Exiting from the executer callback in the promise constructor");
+    console.log(
+      "Exiting from the executer callback in the promise constructor"
+    );
   });
 }
 
