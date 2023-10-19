@@ -43,10 +43,10 @@ x
     console.log("Downloaded data is", data);
     return saveData(data);
 })
-.then(function processSavedDownload(file) {
+.then(function processSavedData(file) {
     console.log("Data saved in the file", file);
     return uploadData("www.abc.com");
 })
-.then(function processUploadedDownload(status) {
+.then(function processUploadedData(status) {
     console.log("Uploading status is", status);
 })
