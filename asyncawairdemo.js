@@ -15,7 +15,7 @@ function writeFile(data) {
         setTimeout(function wrtie() {
             console.log("Completed writing the data in a file");
             const filename = "file.txt";
-            resolve(filename);
+            reject(filename);
         }, 5000);
     })
 }
@@ -31,22 +31,17 @@ function uploadData(file, url) {
     })
 }
 
-function doAfterReceiving(value) {
-    const future = iterator.next(value);
-    if (!future.done) {
-        future.value.then(doAfterReceiving);
+async function generator() {
+    try {
+        const downloadedData = await download("www.xyz.com");
+        console.log("Downloaded data is", downloadedData);
+        const file = await writeFile(downloadedData);
+        console.log("fiele written is", file);
+        const response = await uploadData(file, "www.abc.com");
+        console.log("Uploaded status is", response);
+    } catch (error) {
+        console.log(error);
     }
 }
 
-function* generator() {
-    const downloadedData = yield download("www.xyz.com");
-    console.log("Downloaded data is", downloadedData);
-    const file = yield writeFile(downloadedData);
-    console.log("fiele written is", file);
-    const response = yield uploadData(file, "www.abc.com");
-    console.log("Uploaded status is", response);
-}
-
-const iterator = generator();
-const future = iterator.next();
-future.value.then(doAfterReceiving);
+generator();
